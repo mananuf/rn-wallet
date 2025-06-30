@@ -3,7 +3,7 @@ import {Summary, TransactionsList} from "@/utils/types";
 import dotenv from "dotenv";
 import {Alert} from "react-native";
 
-const API_URL=process.env.API_URL || "http://192.168.19.120:7001";
+const API_URL=process.env.API_URL || "https://rn-wallet-i9dj.onrender.com";
 
 export const useTransactions = (userId: string|number) => {
     const [transactions, setTransactions] = useState<TransactionsList>([]);
@@ -15,7 +15,7 @@ export const useTransactions = (userId: string|number) => {
             console.log("Fetching transactions...", `${API_URL}/api/transactions/user/${userId}`);
             const response = await fetch(`${API_URL}/api/transactions/user/${userId}`);
             const data = await response.json();
-            setTransactions(data);
+            setTransactions(data.transaction);
         } catch (error) {
             console.error("transactions error: ", error);
         }
