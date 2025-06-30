@@ -3,14 +3,20 @@ import dotenv from 'dotenv';
 import {sql} from "./config/db.js";
 import transactionRoutes from "./routes/transaction.js";
 import {rateLimiter} from "./middleware/rateLimiter.js";
+import job from "./config/cron.js";
 
 const app = express();
 const port = process.env.PORT || 7000;
 
+// cron job for server
+if (process.env.NODE_ENV === 'production') job.start();
 
 app.use(express.json());
 app.use(rateLimiter);
 app.use('/api/transactions', transactionRoutes);
+app.get('/api/health', (req, res) => {
+    res.status(200).json({status: 'OK'});
+})
 
 async function initializeDb() {
     try {
