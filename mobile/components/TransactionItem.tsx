@@ -31,8 +31,6 @@ const CATEGORY_ICONS: categoryIcons = {
 };
 
 export const TransactionItem = ({item, onDelete}: TransactionItemProps) => {
-    console.log("Item ==--=================>",item);
-
     const isIncome = Number(item.amount) > 0;
     const iconName = CATEGORY_ICONS[item.category] || "cart";
     return (

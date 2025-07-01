@@ -9,6 +9,7 @@ import {styles} from "@/assets/styles/home.styles";
 import {Ionicons} from "@expo/vector-icons";
 import {BalanceCard} from "@/components/cards/BalanceCard";
 import {TransactionItem} from "@/components/TransactionItem";
+import SignUpScreen from "@/app/(auth)/signup";
 
 export default function Page() {
     const { user } = useUser();
@@ -17,9 +18,10 @@ export default function Page() {
     const { transactions, deleteTransaction, loadData, loading, summary} = useTransactions(user?.id)
 
     const handleDelete = (id: number|string) => {
+        console.log(id)
         Alert.alert("Delete","Are you sure you want to delete this transaction?",[
             {text: "Cancel", style: "cancel"},
-            {text: "Delete", onPress: () => deleteTransaction(id)}
+            {text: "Delete", onPress: async () => await deleteTransaction(id)}
         ]);
     }
 
@@ -78,12 +80,13 @@ export default function Page() {
                 />
             </SignedIn>
             <SignedOut>
-                <Link href={"/(auth)/signin"}>
-                    <Text>Sign in</Text>
-                </Link>
-                <Link href={"/(auth)/signup"}>
-                    <Text>Sign up</Text>
-                </Link>
+                <SignUpScreen/>
+                {/*<Link href={"/(auth)/signin"}>*/}
+                {/*    <Text>Sign in</Text>*/}
+                {/*</Link>*/}
+                {/*<Link href={"/(auth)/signup"}>*/}
+                {/*    <Text>Sign up</Text>*/}
+                {/*</Link>*/}
             </SignedOut>
         </View>
     )

@@ -2,8 +2,7 @@ import {useCallback, useState} from "react";
 import {Summary, TransactionsList} from "@/utils/types";
 import dotenv from "dotenv";
 import {Alert} from "react-native";
-
-const API_URL=process.env.API_URL || "https://rn-wallet-i9dj.onrender.com";
+import {API_URL} from "@/constants/api";
 
 export const useTransactions = (userId: string|number) => {
     const [transactions, setTransactions] = useState<TransactionsList>([]);
@@ -33,14 +32,18 @@ export const useTransactions = (userId: string|number) => {
 
     const deleteTransaction = async (id:number|string) => {
         try {
-            const response = await fetch(`${API_URL}/api/transactions/delete/${id}`);
+            const response = await fetch(`${API_URL}/api/transactions/delete/${id}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            });
             const data = await response.json();
 
             loadData();
             Alert.alert("success", "Transaction deleted");
         } catch (error) {
-            console.error(error);
-            Alert.alert("error", error.message);
+            console.error(error.message);
         }
     }
 
