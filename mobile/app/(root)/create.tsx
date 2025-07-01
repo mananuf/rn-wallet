@@ -6,6 +6,7 @@ import {API_URL} from "@/constants/api";
 import {styles} from "@/assets/styles/create.styles";
 import {Ionicons} from "@expo/vector-icons";
 import {COLORS} from "@/constants/colors";
+import {useTransactions} from "@/hooks/useTransactions";
 
 interface Category {
     id: string;
@@ -26,6 +27,7 @@ const CATEGRIES: Category[] = [
 const CreateScreen = () => {
     const {user} = useUser();
     const router = useRouter();
+    const {loadData} = useTransactions(user?.id);
 
     const [title, setTitle] = useState<string>("");
     const [amount, setAmount] = useState<string>("");
@@ -61,6 +63,8 @@ const CreateScreen = () => {
                 Alert.alert("error", errorData || "Something went wrong");
                 throw new Error(errorData || "failed to create transaction");
             }
+
+            await loadData();
 
             Alert.alert("Success", "Transaction successfully created!");
             router.back();
