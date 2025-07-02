@@ -43,7 +43,7 @@ export const useTransactions = (userId: string|number) => {
             loadData();
             Alert.alert("success", "Transaction deleted");
         } catch (error) {
-            console.error(error.message);
+            console.error(error);
         }
     }
 

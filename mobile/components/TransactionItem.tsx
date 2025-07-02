@@ -45,7 +45,7 @@ export const TransactionItem = ({item, onDelete}: TransactionItemProps) => {
                 </View>
                 <View style={styles.transactionRight}>
                     <Text style={[styles.transactionAmount, { color: isIncome ? COLORS.income: COLORS.expense }]}>
-                        {isIncome ? "+" : "-"} ${Number(item.amount).toFixed(2)}
+                        {isIncome ? `+$${Number(item.amount).toFixed(2)}` : `-$${Number(item.amount.split("-")[1]).toFixed(2)}`}
                     </Text>
                     <Text style={styles.transactionDate}>{formatDate(item.created_at)}</Text>
                 </View>

@@ -81,12 +81,6 @@ export default function Page() {
             </SignedIn>
             <SignedOut>
                 <SignUpScreen/>
-                {/*<Link href={"/(auth)/signin"}>*/}
-                {/*    <Text>Sign in</Text>*/}
-                {/*</Link>*/}
-                {/*<Link href={"/(auth)/signup"}>*/}
-                {/*    <Text>Sign up</Text>*/}
-                {/*</Link>*/}
             </SignedOut>
         </View>
     )
